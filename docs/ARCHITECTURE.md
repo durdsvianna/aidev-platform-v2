@@ -1,10 +1,10 @@
-# Task Manager Application Architecture
+# AI Development Platform Architecture
 
-This document provides a detailed overview of the Task Manager application architecture, explaining the technical design, component relationships, and implementation details.
+This document provides a detailed overview of the AI Development Platform architecture, explaining the technical design, component relationships, and implementation details.
 
 ## System Architecture Overview
 
-The Task Manager application follows a modern architecture with the following key components:
+The AI Development Platform follows a modern architecture with the following key components:
 
 ```
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
@@ -25,7 +25,7 @@ The Task Manager application follows a modern architecture with the following ke
 2. **Backend (Next.js API Routes)**:
    - Handles data processing and business logic
    - Provides RESTful API endpoints
-   - Interfaces with the database
+   - Interfaces with the database and external AI services
 
 3. **Database (MongoDB)**:
    - Stores all application data
@@ -40,23 +40,40 @@ The frontend follows a component-based architecture with React and Next.js, usin
 
 ```
 routes
-├── (base)/                 # Clean layout routes
-│   ├── admin/profile/       # User profile pages
-│   ├── home/                # Home page
-│   └── tasks/               # Task-related pages
-│       ├── [id]/            # Task detail
-│       ├── [id]/edit/       # Task edit
-│       └── create/          # Task creation
+├── (base)/                     # Clean layout routes
+│   ├── admin/profile/          # User profile pages
+│   ├── home/                   # Home page
+│   ├── projects/               # Project-related pages
+│   │   ├── [id]/               # Project detail
+│   │   ├── [id]/edit/          # Project edit
+│   │   └── create/             # Project creation
 │
-└── (sidebar)/               # Sidebar layout routes
-    └── sidelayout/          # All sidebar-enabled routes
-        ├── admin/profile/   # User profile with sidebar
-        ├── dashboard/       # Dashboard with sidebar
-        ├── home/            # Home with sidebar
-        └── tasks/           # Tasks with sidebar
-            ├── [id]/        # Task detail with sidebar
-            ├── [id]/edit/   # Task edit with sidebar
-            └── create/      # Task creation with sidebar
+└── (sidebar)/                  # Sidebar layout routes
+    └── sidelayout/             # All sidebar-enabled routes
+        ├── ai-assistant/       # AI assistant chat interface
+        ├── home/               # Home with sidebar
+        ├── profiles/           # Profile management
+        │   ├── [id]/           # Profile detail
+        │   ├── edit/[id]/      # Profile edit
+        │   └── new/            # Profile creation
+        ├── prompts/            # Prompt management
+        │   ├── [id]/           # Prompt detail
+        │   ├── edit/[id]/      # Prompt edit
+        │   └── new/            # Prompt creation
+        ├── settings/           # Application settings
+        │   └── models/         # AI model management
+        ├── stacks/             # Tech stack management
+        │   ├── [id]/           # Stack detail
+        │   ├── edit/[id]/      # Stack edit
+        │   └── new/            # Stack creation
+        ├── technologies/       # Technology management
+        │   ├── [id]/           # Technology detail
+        │   ├── edit/[id]/      # Technology edit
+        │   └── new/            # Technology creation
+        └── users/              # User management
+            ├── [id]/           # User detail
+            ├── edit/[id]/      # User edit
+            └── new/            # User creation
 ```
 
 ### Component Hierarchy
@@ -68,14 +85,35 @@ routes
 │  │  └─ User Controls
 │  │
 │  └─ Content
-│     ├─ Task Components
-│     │  ├─ ListTasks
-│     │  ├─ CreateTask
-│     │  ├─ TaskDetail
-│     │  └─ EditTask
+│     ├─ AI Assistant Components
+│     │  ├─ ChatInterface
+│     │  ├─ ModelSelector
+│     │  └─ AIAssistantContent
+│     │
+│     ├─ Profile Components
+│     │  ├─ ProfilesList
+│     │  ├─ ProfileDetail
+│     │  └─ ProfileForm
+│     │
+│     ├─ Stack Components
+│     │  ├─ StacksList
+│     │  ├─ StackDetail
+│     │  └─ StackForm
+│     │
+│     ├─ Technology Components
+│     │  ├─ TechnologiesList
+│     │  ├─ TechnologyDetail
+│     │  └─ TechnologyForm
+│     │
+│     ├─ Prompt Components
+│     │  ├─ PromptsList
+│     │  ├─ PromptDetail
+│     │  └─ PromptForm
 │     │
 │     └─ User Components
-│        └─ UserProfile
+│        ├─ UsersList
+│        ├─ UserDetail
+│        └─ UserForm
 ```
 
 ### Key Components
@@ -83,28 +121,39 @@ routes
 #### Layout Components
 
 - **Layouts**
-  - `base/index.tsx`: Clean layout without sidebar
-  - `sidebar/index.tsx`: Layout with sidebar navigation
-  - `sidebar/Sidebar/SidebarMenu/index.tsx`: Sidebar navigation menu
+  - `app/(base)/layout.tsx`: Clean layout without sidebar
+  - `app/(sidebar)/layout.tsx`: Layout with sidebar navigation
+  - `app/(sidebar)/sidelayout/layout.tsx`: Sidebar navigation layout
 
 #### Functionality Components
 
-- **Task Management**
-  - `content/functionalities/Tasks/ListTasks.tsx`: List of tasks with filtering
-  - `content/functionalities/Tasks/CreateTask.tsx`: Task creation form
-  - `content/functionalities/Tasks/TaskDetail.tsx`: Detailed task view
-  - `content/functionalities/Tasks/EditTask.tsx`: Task editing form
+- **AI Assistant**
+  - `components/ai-assistant/AIAssistantWrapper.tsx`: Context provider wrapper
+  - `components/ai-assistant/AIAssistantContent.tsx`: Main AI assistant UI
+  - `components/ai-assistant/ChatInterface.tsx`: Chat interface with message history
+  - `components/ai-assistant/ModelSelector.tsx`: AI model selection component
 
-- **User Management**
-  - `content/functionalities/Users/UserProfile.tsx`: User profile component
+- **Profile Management**
+  - `app/(sidebar)/sidelayout/profiles/page.tsx`: List of profiles
+  - `app/(sidebar)/sidelayout/profiles/[id]/page.tsx`: Profile detail view
+  - `app/(sidebar)/sidelayout/profiles/edit/[id]/page.tsx`: Profile editing
+
+- **Stack Management**
+  - `app/(sidebar)/sidelayout/stacks/page.tsx`: List of stacks
+  - `app/(sidebar)/sidelayout/stacks/[id]/page.tsx`: Stack detail view
+  - `components/stacks/StackForm.tsx`: Stack creation/editing form
+
+- **Technology Management**
+  - `app/(sidebar)/sidelayout/technologies/page.tsx`: List of technologies
+  - `components/technologies/TechnologyForm.tsx`: Technology form
 
 ### State Management
 
-The application uses React's built-in state management with the following approaches:
+The application uses several state management approaches:
 
 1. **Local Component State**: Using `useState` for component-specific state
-2. **React Context**: For shared state like sidebar open/closed status
-3. **React Query**: For server state management and data fetching
+2. **React Context**: For shared state like AI model context and sidebar status
+3. **Service Pattern**: Service classes for data operations
 
 ## Backend Architecture
 
@@ -114,23 +163,43 @@ The backend is implemented using Next.js API Routes, which provide serverless fu
 
 ```
 /api
-├── tasks/             # Task-related endpoints
-│   ├── GET            # List all tasks
-│   ├── POST           # Create a new task
-│   │
-│   └── [id]/          # Task-specific endpoints
-│       ├── GET        # Get a single task
-│       ├── PUT        # Update a task
-│       └── DELETE     # Delete a task
+├── chat/                  # AI chat endpoints
+│   └── [modelId]/         # Model-specific chat endpoint
 │
-└── web3/              # Web3-related endpoints
+├── models/                # AI model management
+│   ├── GET                # List all AI models
+│   ├── POST               # Create a new AI model
+│   │
+│   ├── [id]/              # Model-specific endpoints
+│   │   ├── GET            # Get a single model
+│   │   ├── PATCH          # Update a model
+│   │   └── DELETE         # Delete a model
+│   │
+│   ├── active/            # Get active models
+│   ├── default/           # Get default model
+│   ├── new-models/        # Add new models
+│   ├── reset/             # Reset models to default
+│   ├── seed/              # Seed models data
+│   └── verify/            # Verify model API keys
+│
+├── projects/              # Project management
+│   ├── GET                # List all projects
+│   ├── POST               # Create a new project
+│   │
+│   └── [id]/              # Project-specific endpoints
+│       ├── GET            # Get a single project
+│       ├── PUT            # Update a project
+│       └── DELETE         # Delete a project
+│
+├── tasks/                 # Task management
+└── test-anthropic/        # Test endpoint for Anthropic API
 ```
 
 ### Data Flow
 
 1. Client makes a request to an API endpoint
 2. Next.js API Route handler processes the request
-3. Mongoose connects to MongoDB and executes the query
+3. Mongoose connects to MongoDB and executes the query or external API is called
 4. Response is returned to the client
 
 ### Error Handling
@@ -139,100 +208,198 @@ The API routes implement comprehensive error handling:
 
 1. **Validation Errors**: Return 400 status with validation details
 2. **Not Found Errors**: Return 404 status for missing resources
-3. **Server Errors**: Return 500 status with error details
+3. **API Key Errors**: Handle invalid external API keys gracefully
+4. **Server Errors**: Return 500 status with error details
 
 ## Database Architecture
 
 The application uses MongoDB for data storage, accessed through Mongoose.
 
+### Entity Relationships
+
+The application implements several entity relationships:
+
+1. **Stack-Technology Relationship**: One-to-many relationship where a Stack can contain multiple Technologies
+2. **Profile-Stack Relationship**: One-to-many relationship where a Profile can reference multiple Stacks
+3. **User Management**: Standard user entity with authentication capabilities
+
 ### Schema Design
 
-#### Task Schema
+#### AI Model Schema
 
 ```javascript
-const taskSchema = new Schema<ITask>(
-  {
-    title: {
-      type: String,
-      required: [true, 'Title is required'],
-      trim: true,
-      maxlength: [100, 'Title cannot be more than 100 characters']
-    },
-    company: {
-      type: String,
-      required: [true, 'Company is required'],
-      trim: true
-    },
-    description: {
-      type: String,
-      required: [true, 'Description is required'],
-      trim: true
-    },
-    reward: {
-      type: Number,
-      required: [true, 'Reward is required'],
-      min: [0, 'Reward cannot be negative']
-    },
-    dueDate: {
-      type: Date,
-      required: [true, 'Due date is required']
-    },
-    tags: [{
-      type: String,
-      trim: true
-    }],
-    status: {
-      type: String,
-      enum: {
-        values: ['Open', 'In Progress', 'Completed'],
-        message: '{VALUE} is not a valid status'
-      },
-      default: 'Open'
-    }
+const AIModelSchema = new Schema({
+  name: { 
+    type: String, 
+    required: true,
+    unique: true 
   },
-  {
-    timestamps: true
+  provider: { 
+    type: String, 
+    required: true 
+  },
+  apiKey: { 
+    type: String, 
+    required: true 
+  },
+  baseURL: { 
+    type: String 
+  },
+  contextLength: { 
+    type: Number 
+  },
+  active: { 
+    type: Boolean, 
+    default: true 
+  },
+  isDefault: { 
+    type: Boolean, 
+    default: false 
   }
-)
+});
 ```
 
-### Database Connection
-
-The application implements a connection pooling pattern for MongoDB:
+#### Profile Schema
 
 ```javascript
-// Global is used here to maintain a cached connection across hot reloads
-// in development. This prevents connections growing exponentially
-// during API Route usage.
-let cached = global.mongoose
-
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null }
-}
-
-async function dbConnect() {
-  if (cached.conn) {
-    return cached.conn
+const profileSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  description: {
+    type: String,
+    trim: true
+  },
+  stacks: [{
+    type: String  // References Stack IDs
+  }],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
   }
+});
+```
 
-  if (!cached.promise) {
-    const opts = {
-      bufferCommands: false,
+#### Stack Schema
+
+```javascript
+const stackSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  code: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  technologies: [{
+    type: Schema.Types.Mixed  // Technology objects
+  }],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+```
+
+### Local Storage Service
+
+For development and demonstration purposes, the application also implements a local storage service pattern to mimic database operations:
+
+```javascript
+export class LocalStorageService {
+  isAvailable(): boolean {
+    try {
+      return typeof window !== 'undefined' && window.localStorage !== null
+    } catch (e) {
+      return false
     }
+  }
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose
+  getItem<T>(key: string): T | null {
+    if (!this.isAvailable()) return null
+    
+    try {
+      const item = window.localStorage.getItem(key)
+      return item ? JSON.parse(item) : null
+    } catch (error) {
+      console.error(`Error getting item ${key} from localStorage:`, error)
+      return null
+    }
+  }
+
+  setItem<T>(key: string, value: T): void {
+    if (!this.isAvailable()) return
+    
+    try {
+      window.localStorage.setItem(key, JSON.stringify(value))
+    } catch (error) {
+      console.error(`Error setting item ${key} in localStorage:`, error)
+    }
+  }
+}
+```
+
+## Third-Party AI Integration
+
+The platform integrates with external AI APIs:
+
+### OpenAI Integration
+
+```javascript
+async function callOpenAI(model, messages, apiKey, options = {}) {
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${apiKey}`
+  };
+
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      model,
+      messages,
+      ...options
     })
-  }
-  
-  try {
-    cached.conn = await cached.promise
-  } catch (e) {
-    cached.promise = null
-    throw e
-  }
+  });
 
-  return cached.conn
+  return await response.json();
+}
+```
+
+### Anthropic Integration
+
+```javascript
+async function callAnthropic(model, messages, apiKey, options = {}) {
+  const headers = {
+    'Content-Type': 'application/json',
+    'x-api-key': apiKey,
+    'anthropic-version': '2023-06-01'
+  };
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      model,
+      messages,
+      ...options
+    })
+  });
+
+  return await response.json();
 }
 ```
 
@@ -249,53 +416,30 @@ version: '3.3'
 
 services:
   mongodb:
-    image: mongo:6
+    image: mongo:5.0
     ports:
-      - "27017:27017"
+      - '27017:27017'
     volumes:
       - mongodb_data:/data/db
-    restart: unless-stopped
-    command: --quiet
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=aidev
 
-volumes:
-  mongodb_data:
-```
-
-#### Production Environment
-
-```yaml
-version: '3.3'
-
-services:
-  web:
+  nextapp:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
-      - NODE_ENV=production
-      - MONGODB_URI=mongodb://mongodb:27017/aidev
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/aidev?authSource=admin
     depends_on:
       - mongodb
-    networks:
-      - app-network
-    restart: unless-stopped
-
-  mongodb:
-    image: mongo:6
-    ports:
-      - "27017:27017"
     volumes:
-      - mongodb_data:/data/db
-    networks:
-      - app-network
-    restart: unless-stopped
-    command: --quiet
-
-networks:
-  app-network:
-    driver: bridge
+      - ./:/app
+      - /app/node_modules
+      - /app/.next
 
 volumes:
   mongodb_data:
@@ -344,10 +488,10 @@ CMD ["node", "server.js"]
 
 ## Security Considerations
 
-1. **Input Validation**: All user inputs are validated at the API layer
-2. **Error Handling**: Errors are properly caught and handled
-3. **Docker Security**: Production containers run as non-root users
-4. **Database Security**: MongoDB uses separate volumes for persistence
+1. **API Key Management**: API keys for external services are stored securely without encryption
+2. **Input Validation**: All user inputs are validated at the API layer
+3. **Error Handling**: Errors are properly caught and handled
+4. **Docker Security**: Production containers run as non-root users
 
 ## Performance Considerations
 
@@ -358,4 +502,4 @@ CMD ["node", "server.js"]
 
 ## Conclusion
 
-The Task Manager application implements a modern, scalable architecture using Next.js, MongoDB, and Docker. The separation of concerns between frontend, backend, and database layers ensures maintainability and scalability. 
+The AI Development Platform implements a modern, scalable architecture using Next.js, MongoDB, and Docker. The integration with AI services like OpenAI and Anthropic allows for powerful AI-assisted development capabilities. The separation of concerns between frontend, backend, and database layers ensures maintainability and scalability. 

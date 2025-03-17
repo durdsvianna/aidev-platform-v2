@@ -1,185 +1,306 @@
-# Task Manager User Guide
+# AI Development Platform - User Guide
 
-This user guide provides step-by-step instructions for using the Task Manager application.
+This user guide provides step-by-step instructions for using the AI Development Platform application effectively.
 
 ## Table of Contents
 
-1. [Getting Started](#getting-started)
-2. [Navigation](#navigation)
-3. [Managing Tasks](#managing-tasks)
-4. [User Profile](#user-profile)
-5. [Troubleshooting](#troubleshooting)
+1. [Accessing the Application](#accessing-the-application)
+2. [Navigation Options](#navigation-options)
+3. [Managing Profiles](#managing-profiles)
+4. [Managing Stacks](#managing-stacks)
+5. [Managing Technologies](#managing-technologies)
+6. [Using AI Assistant](#using-ai-assistant)
+7. [Managing Prompts](#managing-prompts)
+8. [User Settings](#user-settings)
+9. [Troubleshooting](#troubleshooting)
 
-## Getting Started
+## Accessing the Application
 
-### Accessing the Application
+To access the AI Development Platform:
 
-You can access the Task Manager application in two ways:
+1. Open your preferred web browser
+2. Navigate to the application URL (e.g., `http://localhost:3000` for local development)
+3. The application will load the homepage with the default layout
 
-1. **Base Layout**: A clean, minimal interface
-   - URL: `http://localhost:3000/`
+## Navigation Options
 
-2. **Sidebar Layout**: A dashboard-like experience with navigation sidebar
-   - URL: `http://localhost:3000/sidelayout/dashboard`
+The application offers two layout options:
 
-### Choosing a Layout
+### Base Layout (Clean/Minimalist)
 
-- For a clean, minimal experience: Use the base layout
-- For a dashboard-like experience with quick navigation: Use the sidebar layout
+The Base Layout provides a clean, minimalist interface:
 
-Both layouts provide access to the same features and functionality but with different navigation experiences.
+1. **Accessing Base Layout**:
+   - Navigate to `/home`, `/projects`, or `/admin/profile`
+   - The layout features a top navigation bar without a sidebar
 
-## Navigation
+2. **Base Layout Navigation**:
+   - Click the **Home** link to access the home page
+   - Click the **Projects** link to view and manage AI projects
+   - Click your profile icon to access profile settings
 
-### Base Layout Navigation
+### Sidebar Layout (Dashboard)
 
-In the base layout, navigation is provided through the top header bar:
+The Sidebar Layout provides a dashboard-like experience:
 
-1. **Header Menu**: Click on the menu icon in the top right to access different sections
-2. **Direct URLs**:
-   - Home: `/home`
-   - Tasks: `/tasks`
-   - Create Task: `/tasks/create`
-   - User Profile: `/admin/profile`
+1. **Accessing Sidebar Layout**:
+   - Navigate to any page with the `/sidelayout/` prefix
+   - The layout features a left sidebar for navigation
 
-### Sidebar Layout Navigation
+2. **Sidebar Navigation**:
+   - Click **Dashboard** to view the main dashboard
+   - Click **AI Assistant** to access the AI chat interface
+   - Click **Profiles** to manage developer profiles
+   - Click **Technologies** to manage tech stack components
+   - Click **Stacks** to manage technology stacks
+   - Click **Prompts** to manage AI prompts
+   - Click **Users** to manage user accounts
+   - Click **Settings** to access application settings
 
-The sidebar layout provides a persistent navigation panel on the left side:
+## Managing Profiles
 
-1. **Dashboard**: Overview of the application
-2. **Home**: Home page
-3. **User Management**: 
-   - User List
-   - User Profile
-4. **Task Management**:
-   - All Tasks
-   - Create Task
-5. **Settings**: Application settings
+Profiles represent developer profiles in the system.
 
-On mobile devices, the sidebar can be toggled by clicking the menu icon in the top left corner.
+### Viewing All Profiles
 
-## Managing Tasks
+1. Navigate to `/sidelayout/profiles`
+2. The Profiles page displays all available profiles in a table
+3. Use the search box to filter profiles by name
+4. Click on a profile name to view its details
 
-### Viewing Tasks
+### Creating a New Profile
 
-1. Navigate to the Tasks page:
-   - Base Layout: Click "Tasks" in the header menu or go to `/tasks`
-   - Sidebar Layout: Click "All Tasks" in the sidebar or go to `/sidelayout/tasks`
+1. Navigate to `/sidelayout/profiles`
+2. Click the **+ New Profile** button
+3. Complete the profile form:
+   - **Name**: Enter the profile name
+   - **Description**: Enter a description
+   - **Stacks**: Select one or more technology stacks from the dropdown
+4. Click **Save** to create the profile
 
-2. The Tasks page displays a list of all tasks with the following information:
-   - Task title and description
-   - Company
-   - Reward amount
-   - Due date
-   - Status
-   - Actions (View, Edit)
+### Viewing Profile Details
 
-3. **Filtering Tasks**:
-   - Use the search box to search by title, description, or company
-   - Use the status dropdown to filter by status (Open, In Progress, Completed)
-   - Use the tag dropdown to filter by specific tags
+1. Navigate to `/sidelayout/profiles`
+2. Click on a profile name in the table
+3. The Profile Detail page displays:
+   - Profile name and description
+   - Associated technology stacks
+   - Creation and last update dates
+   - Options to edit or delete the profile
 
-### Creating a New Task
+### Editing a Profile
 
-1. Navigate to the Create Task page:
-   - Base Layout: Click "Create Task" button on the Tasks page or go to `/tasks/create`
-   - Sidebar Layout: Click "Create Task" in the sidebar or go to `/sidelayout/tasks/create`
+1. Navigate to the Profile Detail page
+2. Click the **Edit Profile** button
+3. Update the profile information
+4. Modify the selected stacks by checking/unchecking options in the dropdown
+5. Click **Save** to update the profile
 
-2. Fill in the task details:
-   - **Title**: Enter a descriptive title (required)
-   - **Company**: Enter the company name (required)
-   - **Description**: Provide detailed information about the task (required)
-   - **Reward**: Enter the reward amount (required, must be a positive number)
-   - **Due Date**: Select the deadline for the task (required)
-   - **Tags**: Add relevant tags (optional, separate with commas)
-   - **Status**: Select the initial status (defaults to "Open")
+### Deleting a Profile
 
-3. Click "Create Task" to submit the form.
+1. Navigate to the Profile Detail page
+2. Click the **Delete Profile** button
+3. Confirm the deletion in the confirmation dialog
+4. The profile will be permanently deleted
 
-4. If successful, you'll be redirected to the task list with a success notification.
+## Managing Stacks
 
-### Viewing Task Details
+Stacks represent technology stacks that combine multiple technologies.
 
-1. From the task list, click "View" on any task.
+### Viewing All Stacks
 
-2. The Task Detail page displays:
-   - All task information
-   - Status and tags
-   - Creation and due dates
-   - Options to edit or delete the task
+1. Navigate to `/sidelayout/stacks`
+2. The Stacks page displays all available stacks in a table
+3. Use the search box to filter stacks by name
+4. Click on a stack name to view its details
 
-### Editing a Task
+### Creating a New Stack
 
-1. Access the Edit Task page in one of these ways:
-   - From the task list, click "Edit" on the task
-   - From the task detail page, click the "Edit" button
-   - Go directly to `/tasks/[id]/edit` or `/sidelayout/tasks/[id]/edit`
+1. Navigate to `/sidelayout/stacks`
+2. Click the **+ New Stack** button
+3. Complete the stack form:
+   - **Name**: Enter the stack name
+   - **Code**: Enter a unique code for the stack
+   - **Technologies**: Select one or more technologies from the dropdown
+   - **Profiles**: Select one or more profiles to associate with this stack
+4. Click **Save** to create the stack
 
-2. Update the task details as needed.
+### Viewing Stack Details
 
-3. Click "Update Task" to save your changes.
+1. Navigate to `/sidelayout/stacks`
+2. Click on a stack name in the table
+3. The Stack Detail page displays:
+   - Stack name and code
+   - Associated technologies
+   - Profiles using this stack
+   - Creation and last update dates
+   - Options to edit or delete the stack
 
-### Deleting a Task
+### Editing a Stack
 
-1. From the task detail page, click the "Delete" button.
+1. Navigate to the Stack Detail page
+2. Click the **Edit Stack** button
+3. Update the stack information
+4. Modify the technologies and profiles by checking/unchecking options
+5. Click **Save** to update the stack
 
-2. Confirm the deletion in the confirmation dialog.
+### Deleting a Stack
 
-3. If successful, you'll be redirected to the task list with a confirmation message.
+1. Navigate to the Stack Detail page
+2. Click the **Delete Stack** button
+3. Confirm the deletion in the confirmation dialog
+4. The stack will be permanently deleted
 
-## User Profile
+## Managing Technologies
+
+Technologies represent individual technologies that can be combined into stacks.
+
+### Viewing All Technologies
+
+1. Navigate to `/sidelayout/technologies`
+2. The Technologies page displays all available technologies in a table
+3. Use the search box to filter technologies by name
+4. Click on a technology name to view its details
+
+### Creating a New Technology
+
+1. Navigate to `/sidelayout/technologies`
+2. Click the **+ New Technology** button
+3. Complete the technology form:
+   - **Name**: Enter the technology name
+   - **Description**: Enter a description
+   - **Category**: Select a category (e.g., Frontend, Backend, Database)
+4. Click **Save** to create the technology
+
+### Editing a Technology
+
+1. Navigate to the Technology Detail page
+2. Click the **Edit Technology** button
+3. Update the technology information
+4. Click **Save** to update the technology
+
+## Using AI Assistant
+
+The AI Assistant provides intelligent conversational assistance for development tasks.
+
+### Accessing AI Assistant
+
+1. Navigate to `/sidelayout/ai-assistant`
+2. The AI Assistant interface will appear with a chat window
+
+### Configuring AI Models
+
+1. Click the **Settings** button in the AI Assistant interface
+2. Select your preferred AI model from the dropdown
+3. You can choose from models like:
+   - GPT-4
+   - Claude 3
+   - Other available models
+4. Configuration changes are applied immediately
+
+### Creating a Chat Session
+
+1. Enter your question or request in the input field
+2. Press Enter or click the Send button
+3. The AI Assistant will process your request and respond
+4. Continue the conversation by typing additional messages
+
+### Saving Prompts
+
+1. After receiving a useful response in the AI Assistant
+2. Click the **Save Prompt** button next to the message
+3. Enter a name and optional description for the prompt
+4. Click **Save** to store the prompt for future use
+
+## Managing Prompts
+
+Prompts allow you to save and reuse AI interaction patterns.
+
+### Viewing All Prompts
+
+1. Navigate to `/sidelayout/prompts`
+2. The Prompts page displays all saved prompts in a table
+3. Use the search box to filter prompts by name
+4. Click on a prompt name to view its details
+
+### Creating a New Prompt
+
+1. Navigate to `/sidelayout/prompts`
+2. Click the **+ New Prompt** button
+3. Complete the prompt form:
+   - **Name**: Enter a descriptive name
+   - **Content**: Enter the prompt content/text
+   - **Description**: Add an optional description
+   - **Tags**: Add optional tags for categorization
+4. Click **Save** to create the prompt
+
+### Using a Saved Prompt
+
+1. Navigate to the Prompt Detail page
+2. Click the **Use in AI Assistant** button
+3. The system will navigate to the AI Assistant with the prompt pre-loaded
+4. Click Send to execute the prompt
+
+## User Settings
 
 ### Viewing Your Profile
 
-1. Navigate to the User Profile page:
-   - Base Layout: Click your user icon in the header or go to `/admin/profile`
-   - Sidebar Layout: Click "User Profile" in the sidebar or go to `/sidelayout/admin/profile`
-
-2. The User Profile page displays:
-   - Profile information
-   - Profile picture
-   - Bio and contact details
+1. Click your user icon in the top navigation bar
+2. Select **Profile** from the dropdown menu
+3. Your profile page will display:
+   - User information
+   - Account settings
+   - API key management (if applicable)
 
 ### Editing Your Profile
 
-1. On the User Profile page, click "Edit Profile".
+1. Navigate to your profile page
+2. Click the **Edit Profile** button
+3. Update your information
+4. Click **Save** to apply changes
 
-2. Update your profile information.
+### Managing API Keys
 
-3. Click "Save Changes" to update your profile.
+1. Navigate to `/sidelayout/settings/models`
+2. The AI Models page displays all configured AI service providers
+3. To add a new API key:
+   - Click **Add API Key**
+   - Select the provider (OpenAI, Anthropic, etc.)
+   - Enter your API key
+   - Click **Save**
+4. To update an existing API key:
+   - Click the Edit button next to the provider
+   - Update the API key
+   - Click **Save**
 
 ## Troubleshooting
 
 ### Common Issues
 
-#### Tasks Not Loading
+#### Profiles or Stacks Not Loading
 
-If tasks don't load:
-
-1. Check your internet connection
-2. Refresh the page
-3. Ensure MongoDB is running (if using local development)
+- Check your internet connection
+- Refresh the page
+- Ensure MongoDB is running (for local development)
 
 #### Form Submission Errors
 
-If you encounter errors when submitting forms:
-
-1. Check that all required fields are filled in
-2. Ensure the data format is correct (e.g., numbers for reward)
-3. Check for any validation error messages
+- Ensure all required fields are filled
+- Check that data formats are correct
+- Look for validation error messages
 
 #### Navigation Issues
 
-If links don't work or pages don't load:
-
-1. Ensure you're using the correct URL format
-2. Check that the server is running
-3. Clear your browser cache and try again
+- Verify you're using the correct URL format
+- Ensure the server is running
+- Try clearing your browser cache if links don't work
 
 ### Getting Help
 
-If you continue to experience issues:
-
-1. Check the console for error messages (F12 in most browsers)
-2. Refer to the [README.md](../README.md) for setup instructions
-3. File an issue on the project repository with detailed information about the problem 
+- Check the browser console for error messages
+- Refer to the `README.md` file for setup instructions
+- File an issue on the project repository with:
+  - Description of the problem
+  - Steps to reproduce
+  - Expected vs. actual behavior
+  - Browser and OS information 

@@ -1,259 +1,290 @@
 # AI Development Platform
 
-Uma plataforma moderna para desenvolvimento de IA construída com Next.js, MongoDB e Docker. A aplicação permite aos usuários criar, gerenciar e implantar modelos de IA, além de acompanhar projetos e experimentos.
+A comprehensive platform for AI development, built with Next.js, MongoDB, and Docker. This platform enables users to create, manage, and deploy AI models, as well as track AI projects and experiments.
 
-![AI Development Platform](public/preview.png)
+![AI Development Platform](./public/ai-platform-screenshot.png)
 
-## 🚀 Funcionalidades
+## Features
 
-- **Gerenciamento de Projetos de IA:**
-  - Criar, visualizar, editar e excluir projetos de IA
-  - Acompanhar experimentos e resultados
-  - Visualizar métricas e desempenho de modelos
+### AI Project Management
+- Create, view, edit, and delete AI projects
+- Track experiments and results
+- Visualize model metrics and performance
 
-- **Interface Moderna:**
-  - Dois layouts diferentes:
-    - Layout base (limpo e minimalista)
-    - Layout com sidebar (para experiência de dashboard)
-  - Design responsivo para todos os tamanhos de dispositivos
-  - Suporte a modo claro/escuro
+### Developer Profile Management
+- Create and maintain developer profiles
+- Associate profiles with technology stacks
+- Track developer expertise and project involvement
 
-- **Integração com MongoDB:**
-  - Operações CRUD completas com MongoDB
-  - Modelos Mongoose com validação
-  - Gerenciamento eficiente de conexão com banco de dados
+### Technology Stack Management
+- Define and organize technology stacks
+- Associate technologies with stacks
+- Assign stacks to developer profiles (many-to-many relationship)
+- Track most used stacks across the platform
 
-- **Suporte a Docker:**
-  - Configuração de desenvolvimento com Docker Compose
-  - Dockerfile pronto para produção
-  - Container MongoDB para fácil configuração de banco de dados
+### AI Assistant Integration
+- Integrated AI chat assistant powered by various models
+- Switch between different AI models (OpenAI GPT-4, Anthropic Claude, etc.)
+- Save and reuse prompts
 
-- **API:**
-  - Endpoints RESTful para projetos e modelos de IA
-  - Tratamento de erros e validação
+### Modern Interface
+- Two layout options: clean/minimalist and sidebar/dashboard
+- Responsive design for mobile and desktop devices
+- Light and dark mode support
+- Component-based UI with Tailwind CSS
 
-## 🔧 Stack Tecnológica
+### MongoDB Integration
+- Full CRUD operations with MongoDB
+- Mongoose models with validation
+- Efficient database connection management
 
-- **Frontend:**
-  - [Next.js 14](https://nextjs.org/) (Framework React com App Router)
-  - [Tailwind CSS](https://tailwindcss.com/) (Estilização)
-  - [React Icons](https://react-icons.github.io/react-icons/) (Biblioteca de ícones)
-  - [React Query](https://tanstack.com/query/latest) (Busca de dados)
+### Docker Support
+- Development setup with Docker Compose
+- Production-ready Dockerfile
+- MongoDB container for easy database configuration
 
-- **Backend:**
-  - [Next.js API Routes](https://nextjs.org/docs/app/building-your-application/routing/route-handlers) (Endpoints do servidor)
-  - [MongoDB](https://www.mongodb.com/) (Banco de dados)
-  - [Mongoose](https://mongoosejs.com/) (ODM para MongoDB)
+### API
+- RESTful endpoints for AI projects, models, and profiles
+- Comprehensive error handling
+- Input validation
 
-- **Infraestrutura:**
-  - [Docker](https://www.docker.com/) (Containerização)
-  - [Docker Compose](https://docs.docker.com/compose/) (Configuração multi-container)
+## Technology Stack
 
-## 📂 Estrutura do Projeto
+### Frontend
+- Next.js 14 with App Router
+- Tailwind CSS for styling
+- React Icons
+- React Query for data fetching
+
+### Backend
+- Next.js API Routes
+- MongoDB
+- Mongoose
+
+### Infrastructure
+- Docker & Docker Compose
+
+## Project Structure
 
 ```
-src/
-├── app/
-│   ├── (base)/                 # Rotas de layout base
-│   │   ├── admin/              # Rotas de administração
-│   │   ├── home/               # Rota inicial
-│   │   └── projects/           # Rotas de projetos (lista, criação, visualização, edição)
-│   ├── (sidebar)/              # Rotas de layout com sidebar
-│   │   └── sidelayout/         # Todas as rotas com sidebar habilitada
-│   ├── api/                    # Rotas da API
-│   │   └── projects/           # Endpoints da API de projetos
-│   ├── content/                # Componentes de conteúdo
-│   │   └── functionalities/    # Componentes de funcionalidade reutilizáveis
-│   ├── contexts/               # Contextos React
-│   └── layouts/                # Componentes de layout
-│       ├── base/               # Componentes de layout base
-│       └── sidebar/            # Componentes de layout com sidebar
-├── components/                 # Componentes compartilhados
-│   └── ui/                     # Componentes de UI
-├── lib/                        # Bibliotecas utilitárias
-│   └── mongodb.ts              # Utilitário de conexão com MongoDB
-├── models/                     # Modelos Mongoose
-│   └── Project.ts              # Modelo de projeto
-└── types/                      # Definições de tipos TypeScript
+ai-development-platform/
+├── src/
+│   ├── app/                         # Next.js App Router
+│   │   ├── (base)/                  # Base layout routes
+│   │   │   ├── admin/profile/       # User profile pages
+│   │   │   ├── home/                # Home page
+│   │   │   └── projects/            # Project pages
+│   │   ├── (sidebar)/               # Sidebar layout routes
+│   │   │   └── sidelayout/          # All sidebar routes
+│   │   │       ├── ai-assistant/    # AI assistant pages
+│   │   │       ├── profiles/        # Profile management
+│   │   │       ├── prompts/         # Prompt management
+│   │   │       ├── settings/        # Settings pages
+│   │   │       ├── stacks/          # Stack management
+│   │   │       ├── technologies/    # Technology management
+│   │   │       └── users/           # User management
+│   │   └── api/                     # API routes
+│   │       ├── chat/                # Chat API endpoints
+│   │       ├── models/              # AI models API
+│   │       └── projects/            # Projects API
+│   ├── components/                  # Shared components
+│   │   ├── ai-assistant/           # AI assistant components
+│   │   ├── profiles/               # Profile components
+│   │   ├── stacks/                 # Stack components
+│   │   └── ui/                     # General UI components
+│   ├── lib/                         # Utilities
+│   │   ├── services/               # Service classes
+│   │   └── mongodb.ts              # MongoDB connection
+│   ├── models/                      # Data models
+│   │   ├── AIModel.ts              # AI model definition
+│   │   ├── Profile.ts              # Profile model
+│   │   ├── Project.ts              # Project model
+│   │   ├── Stack.ts                # Stack model
+│   │   └── Technology.ts           # Technology model
+│   └── types/                       # TypeScript definitions
+├── public/                          # Static assets
+├── docker-compose.yml               # Docker setup
+├── Dockerfile                       # Docker image definition
+└── README.md                        # Project documentation
 ```
 
-## 📋 Modelos de Dados
+## Data Models
 
-### Modelo de Projeto de IA
+### Profile Model
+```typescript
+interface IProfile {
+  id: string;
+  name: string;
+  description?: string;
+  stacks: string[];  // References to Stack IDs
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
 
+### Stack Model
+```typescript
+interface IStack {
+  id: string;
+  name: string;
+  code: string;
+  technologies: ITechnology[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+### Technology Model
+```typescript
+interface ITechnology {
+  id: string;
+  name: string;
+  description?: string;
+  category: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+### AI Project Model
 ```typescript
 interface IAIProject {
-  _id?: string;
+  _id: string;
   name: string;
   description: string;
-  modelType: 'Classification' | 'Regression' | 'NLP' | 'Computer Vision' | 'Other';
+  modelType: 'Classification' | 'Regression' | 'NLP' | 'Computer Vision' | 'Reinforcement Learning' | 'Other';
   framework: string;
   metrics: {
     accuracy?: number;
     precision?: number;
     recall?: number;
     f1Score?: number;
-    customMetrics?: Record<string, number>;
+    mse?: number;
+    mae?: number;
+    otherMetrics?: Record<string, number>;
   };
-  status: 'Planning' | 'Development' | 'Testing' | 'Deployed';
-  createdAt?: Date;
-  updatedAt?: Date;
+  status: 'Planning' | 'In Progress' | 'Testing' | 'Completed';
+  createdAt: Date;
+  updatedAt: Date;
 }
 ```
 
-## 🚢 Endpoints da API
-
-### API de Projetos
-
-- `GET /api/projects` - Listar todos os projetos (com filtragem opcional por status)
-- `POST /api/projects` - Criar um novo projeto
-- `GET /api/projects/[id]` - Obter detalhes de um projeto específico
-- `PUT /api/projects/[id]` - Atualizar um projeto
-- `DELETE /api/projects/[id]` - Excluir um projeto
-
-## 🛠️ Instruções de Configuração
-
-### Pré-requisitos
-
-- [Node.js](https://nodejs.org/) (v18 ou superior)
-- [Docker](https://www.docker.com/) e [Docker Compose](https://docs.docker.com/compose/) (para configuração containerizada)
-
-### Variáveis de Ambiente
-
-Crie um arquivo `.env.local` no diretório raiz com as seguintes variáveis:
-
-```env
-MONGODB_URI=mongodb://localhost:27017/aidev-platform
+### AI Model Configuration
+```typescript
+interface IAIModel {
+  id: string;
+  name: string;
+  provider: string;
+  apiKey: string;
+  baseURL?: string;
+  contextLength?: number;
+  active: boolean;
+  isDefault: boolean;
+}
 ```
 
-### Configuração de Desenvolvimento
+## Getting Started
 
-#### Opção 1: Com Docker (Recomendado)
+### Option 1: With Docker (Recommended)
 
-1. Inicie o container MongoDB:
+1. Clone the repository
+2. Make sure Docker and Docker Compose are installed on your machine
+3. Create a `.env.local` file with the following variables:
+   ```
+   MONGODB_URI=mongodb://admin:password@mongodb:27017/aidev?authSource=admin
+   OPENAI_API_KEY=your_openai_api_key
+   ANTHROPIC_API_KEY=your_anthropic_api_key
+   ```
+4. Run the development environment:
+   ```bash
+   docker-compose up -d
+   ```
+5. Access the application at http://localhost:3000
+
+### Option 2: Without Docker
+
+1. Ensure MongoDB is installed and running locally or use a remote instance
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env.local` file with your MongoDB connection string:
+   ```
+   MONGODB_URI=mongodb://localhost:27017/aidev
+   OPENAI_API_KEY=your_openai_api_key
+   ANTHROPIC_API_KEY=your_anthropic_api_key
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+5. Access the application at http://localhost:3000
+
+## Production Deployment
+
+To deploy to production:
+
+1. Build and run Docker containers:
+   ```bash
+   docker-compose up -d
+   ```
+   This builds the Next.js application and runs it alongside MongoDB.
+
+## Navigation Options
+
+The application offers two layout options:
+
+1. **Base Layout**: A clean, minimalist layout
+   - Accessible via: `/home`, `/projects`, `/admin/profile`
+
+2. **Sidebar Layout**: A dashboard-like experience with lateral navigation
+   - Accessible via: `/sidelayout/home`, `/sidelayout/profiles`, etc.
+
+## Application Flows
+
+### Creating and Managing Developer Profiles
+
+1. Navigate to `/sidelayout/profiles` or click "Profiles" in the sidebar
+2. Click "New Profile" to create a new developer profile
+3. Fill in profile details and select associated technology stacks
+4. After creation, you can view, edit, or delete profiles
+
+### Creating and Managing Technology Stacks
+
+1. Navigate to `/sidelayout/stacks` or click "Stacks" in the sidebar
+2. Click "New Stack" to create a new technology stack
+3. Fill in stack details and select associated technologies
+4. You can assign profiles to stacks to establish the many-to-many relationship
+
+### Using the AI Assistant
+
+1. Navigate to `/sidelayout/ai-assistant` or click "AI Assistant" in the sidebar
+2. Select your preferred AI model
+3. Start a conversation by entering a message
+4. Save useful prompts for later reuse
+
+## Testing
+
+The application includes comprehensive tests for all major components:
 
 ```bash
-docker-compose -f docker-compose.dev.yml up -d
+# Run all tests
+npm test
+
+# Run specific test suites
+npm test -- -t "ProfileService|StackService"
 ```
 
-2. Instale as dependências:
+## License
 
-```bash
-npm install
-```
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-3. Execute o servidor de desenvolvimento:
+## Contributing
 
-```bash
-npm run dev
-```
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-#### Opção 2: Sem Docker
+## Acknowledgements
 
-1. Certifique-se de ter o MongoDB instalado e em execução localmente (ou use uma instância remota do MongoDB).
-
-2. Instale as dependências:
-
-```bash
-npm install
-```
-
-3. Configure o `MONGODB_URI` no `.env.local` para apontar para sua instância do MongoDB.
-
-4. Execute o servidor de desenvolvimento:
-
-```bash
-npm run dev
-```
-
-### Implantação em Produção
-
-1. Construa e execute os containers Docker:
-
-```bash
-docker-compose up -d
-```
-
-Isso construirá a aplicação Next.js e a executará junto com o MongoDB.
-
-## 🧭 Navegação
-
-A aplicação oferece dois layouts diferentes para acessar a mesma funcionalidade:
-
-1. **Layout Base** - Layout limpo e minimalista sem sidebar
-   - Acesso via: `/home`, `/projects`, `/admin/profile`, etc.
-
-2. **Layout com Sidebar** - Experiência tipo dashboard com navegação lateral
-   - Acesso via: `/sidelayout/home`, `/sidelayout/projects`, `/sidelayout/admin/profile`, etc.
-
-## 🔄 Fluxos da Aplicação
-
-### Criando um Projeto de IA
-
-1. Navegue para `/projects/create` ou `/sidelayout/projects/create`
-2. Preencha os detalhes do projeto (nome, descrição, tipo de modelo, framework, métricas, status)
-3. Envie o formulário para criar o projeto
-
-### Gerenciando Projetos
-
-1. Visualize todos os projetos na página de lista de projetos (`/projects` ou `/sidelayout/projects`)
-2. Use os filtros para encontrar projetos específicos:
-   - Pesquise por nome ou descrição
-   - Filtre por status (Planning, Development, Testing, Deployed)
-   - Filtre por tipo de modelo
-3. Clique em um projeto para ver detalhes
-4. Edite ou exclua projetos da visualização de detalhes
-
-## 📱 Design Responsivo
-
-A aplicação é totalmente responsiva:
-- Desktop: Sidebar completa e visualizações expandidas
-- Tablet: Sidebar recolhível com alternância
-- Mobile: Visualização mobile otimizada com menu hamburger
-
-## 🛠️ Scripts de Desenvolvimento
-
-```bash
-# Iniciar servidor de desenvolvimento
-npm run dev
-
-# Construir para produção
-npm run build
-
-# Iniciar servidor de produção
-npm run start
-
-# Verificar código
-npm run lint
-
-# Formatar código
-npm run format
-```
-
-## 🐳 Scripts Docker
-
-```bash
-# Iniciar MongoDB para desenvolvimento
-docker-compose -f docker-compose.dev.yml up -d
-
-# Iniciar stack completa da aplicação para produção
-docker-compose up -d
-
-# Parar todos os containers
-docker-compose down
-
-# Parar containers de desenvolvimento
-docker-compose -f docker-compose.dev.yml down
-```
-
-## 📈 Melhorias Futuras
-
-- Autenticação e autorização de usuários
-- Integração com frameworks populares de IA (TensorFlow, PyTorch, etc.)
-- Visualização de dados e métricas em tempo real
-- Implantação automatizada de modelos
-- Colaboração em equipe e compartilhamento de projetos
-
-## 📄 License
-
-This project is licensed under the MIT License.
+- Next.js Team for the amazing framework
+- MongoDB for the flexible database solution
+- Tailwind CSS for the utility-first CSS framework
