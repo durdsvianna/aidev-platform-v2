@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <style>
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+    .float {
+      animation: float 6s ease-in-out infinite;
+    }
+    .float-delay {
+      animation: float 6s ease-in-out 2s infinite;
+    }
+  </style>
+  
+  <!-- Background circles -->
+  <circle cx="250" cy="250" r="200" fill="#f0f4f8" />
+  
+  <!-- 404 Text -->
+  <g transform="translate(80, 220)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="120" font-weight="bold" fill="#3b82f6">
+      404
+    </text>
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="24" fill="#64748b">
+      Page not found
+    </text>
+  </g>
+  
+  <!-- Floating astronaut -->
+  <g class="float" transform="translate(320, 150)">
+    <circle cx="0" cy="0" r="30" fill="#3b82f6" />
+    <circle cx="0" cy="0" r="20" fill="#ffffff" opacity="0.3" />
+    <rect x="-15" y="30" width="30" height="40" rx="10" fill="#3b82f6" />
+  </g>
+  
+  <!-- Floating planets -->
+  <circle class="float-delay" cx="120" cy="120" r="15" fill="#f97316" />
+  <circle class="float" cx="380" cy="280" r="20" fill="#84cc16" />
+  <circle class="float-delay" cx="180" cy="350" r="12" fill="#f43f5e" />
+  
+  <!-- Stars -->
+  <g fill="#94a3b8">
+    <circle cx="100" cy="80" r="3" />
+    <circle cx="150" cy="150" r="2" />
+    <circle cx="400" cy="100" r="2" />
+    <circle cx="320" cy="350" r="3" />
+    <circle cx="420" cy="250" r="2" />
+    <circle cx="450" cy="350" r="2" />
+    <circle cx="200" cy="400" r="3" />
+    <circle cx="300" cy="420" r="2" />
+    <circle cx="80" cy="300" r="2" />
+    <circle cx="370" cy="410" r="3" />
+  </g>
+</svg> 

@@ -1,0 +1,20 @@
+{
+  "welcome": "Bienvenido a AIDev",
+  "connect_wallet": "Conectar Billetera",
+  "disconnect": "Desconectar",
+  "connected_as": "Conectado como {{address}}",
+  "switch_network": "Cambiar Red",
+  "home": "Inicio",
+  "projects": "Proyectos",
+  "documentation": "Documentación",
+  "community": "Comunidad",
+  "search_placeholder": "Buscar...",
+  "notifications": "Notificaciones",
+  "notification_new_project": "Nuevo proyecto disponible",
+  "notification_wallet_connected": "Tu billetera fue conectada",
+  "notification_system_update": "Actualización del sistema completada",
+  "notification_time_recent": "Hace 2 minutos",
+  "notification_time_hour": "Hace 1 hora",
+  "notification_time_yesterday": "Ayer",
+  "view_all_notifications": "Ver todas las notificaciones"
+} 

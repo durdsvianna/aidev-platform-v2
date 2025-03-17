@@ -1,0 +1,20 @@
+{
+  "welcome": "Welcome to AIDev",
+  "connect_wallet": "Connect Wallet",
+  "disconnect": "Disconnect",
+  "connected_as": "Connected as {{address}}",
+  "switch_network": "Switch Network",
+  "home": "Home",
+  "projects": "Projects",
+  "documentation": "Documentation",
+  "community": "Community",
+  "search_placeholder": "Search...",
+  "notifications": "Notifications",
+  "notification_new_project": "New project available",
+  "notification_wallet_connected": "Your wallet was connected",
+  "notification_system_update": "System update completed",
+  "notification_time_recent": "2 minutes ago",
+  "notification_time_hour": "1 hour ago",
+  "notification_time_yesterday": "Yesterday",
+  "view_all_notifications": "View all notifications"
+} 

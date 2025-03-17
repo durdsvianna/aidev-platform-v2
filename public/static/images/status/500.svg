@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <style>
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes shake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(-5px, 0) rotate(-5deg); }
+      50% { transform: translate(0, 0) rotate(0deg); }
+      75% { transform: translate(5px, 0) rotate(5deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+    .pulse {
+      animation: pulse 4s ease-in-out infinite;
+    }
+    .shake {
+      animation: shake 0.5s ease-in-out infinite;
+      transform-origin: 50% 50%;
+    }
+  </style>
+  
+  <!-- Background circle -->
+  <circle cx="250" cy="250" r="200" fill="#fef2f2" />
+  
+  <!-- 500 Text -->
+  <g transform="translate(80, 220)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="120" font-weight="bold" fill="#ef4444">
+      500
+    </text>
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="24" fill="#64748b">
+      Server error
+    </text>
+  </g>
+  
+  <!-- Server icon with error -->
+  <g class="pulse" transform="translate(340, 160)">
+    <rect x="-40" y="-30" width="80" height="100" rx="5" fill="#ef4444" />
+    <rect x="-30" y="-20" width="60" height="10" rx="3" fill="#ffffff" opacity="0.5" />
+    <rect x="-30" y="0" width="60" height="10" rx="3" fill="#ffffff" opacity="0.5" />
+    <rect x="-30" y="20" width="60" height="10" rx="3" fill="#ffffff" opacity="0.5" />
+    
+    <!-- Error symbol -->
+    <g class="shake" transform="translate(0, 50)">
+      <path d="M-10,-10 L10,10 M10,-10 L-10,10" stroke="#ffffff" stroke-width="4" stroke-linecap="round" />
+    </g>
+  </g>
+  
+  <!-- Connection lines -->
+  <g stroke="#94a3b8" stroke-width="2" stroke-dasharray="5,5">
+    <path d="M250,250 L150,120" />
+    <path d="M250,250 L350,120" />
+    <path d="M250,250 L180,350" />
+    <path d="M250,250 L320,350" />
+  </g>
+  
+  <!-- Node points -->
+  <circle cx="150" cy="120" r="10" fill="#ef4444" />
+  <circle cx="350" cy="120" r="10" fill="#ef4444" />
+  <circle cx="180" cy="350" r="10" fill="#ef4444" />
+  <circle cx="320" cy="350" r="10" fill="#ef4444" />
+  
+  <!-- Central node -->
+  <circle cx="250" cy="250" r="15" fill="#ef4444" />
+</svg> 
