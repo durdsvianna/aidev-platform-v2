@@ -5,12 +5,17 @@ export interface UserData {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string  // Made optional for Google auth users
   description?: string
   profileImage?: string
   profile?: Profile | ProfileData
   createdAt?: Date
   updatedAt?: Date
+  lastLogin?: Date
+  // Google auth fields
+  googleId?: string
+  googleProfilePicture?: string
+  isGoogleUser?: boolean
 }
 
 export default class User {
@@ -23,12 +28,17 @@ export default class User {
   profile?: Profile
   createdAt: Date
   updatedAt: Date
+  lastLogin: Date
+  // Google auth fields
+  googleId?: string
+  googleProfilePicture?: string
+  isGoogleUser: boolean
 
   constructor(data: UserData) {
     this.id = data.id || uuidv4()
     this.name = data.name
     this.email = data.email
-    this.password = data.password
+    this.password = data.password || ''
     this.description = data.description || ''
     this.profileImage = data.profileImage || ''
     this.profile = data.profile ? 
@@ -36,6 +46,11 @@ export default class User {
       : undefined
     this.createdAt = data.createdAt || new Date()
     this.updatedAt = data.updatedAt || new Date()
+    this.lastLogin = data.lastLogin || new Date()
+    // Google auth fields
+    this.googleId = data.googleId
+    this.googleProfilePicture = data.googleProfilePicture
+    this.isGoogleUser = data.isGoogleUser || false
   }
 
   static fromJSON(json: any): User {
@@ -48,7 +63,12 @@ export default class User {
       profileImage: json.profileImage,
       profile: json.profile ? Profile.fromJSON(json.profile) : undefined,
       createdAt: json.createdAt ? new Date(json.createdAt) : new Date(),
-      updatedAt: json.updatedAt ? new Date(json.updatedAt) : new Date()
+      updatedAt: json.updatedAt ? new Date(json.updatedAt) : new Date(),
+      lastLogin: json.lastLogin ? new Date(json.lastLogin) : new Date(),
+      // Google auth fields
+      googleId: json.googleId,
+      googleProfilePicture: json.googleProfilePicture,
+      isGoogleUser: json.isGoogleUser
     })
   }
 
@@ -62,7 +82,12 @@ export default class User {
       profileImage: this.profileImage,
       profile: this.profile?.toJSON(),
       createdAt: this.createdAt,
-      updatedAt: this.updatedAt
+      updatedAt: this.updatedAt,
+      lastLogin: this.lastLogin,
+      // Google auth fields
+      googleId: this.googleId,
+      googleProfilePicture: this.googleProfilePicture,
+      isGoogleUser: this.isGoogleUser
     }
   }
 } 

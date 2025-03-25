@@ -15,7 +15,7 @@ interface PromptFormProps {
 export default function PromptForm({ promptId, onCancel }: PromptFormProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const descriptionParam = searchParams.get('description')
+  const descriptionParam = searchParams?.get('description')
   const [stacks, setStacks] = useState<Stack[]>([])
   const [formData, setFormData] = useState<PromptData>({
     title: '',

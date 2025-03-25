@@ -44,6 +44,14 @@ export class UserService {
     return this.users.find(user => user.id === id)
   }
 
+  getByEmail(email: string): User | undefined {
+    return this.users.find(user => user.email === email)
+  }
+
+  getByGoogleId(googleId: string): User | undefined {
+    return this.users.find(user => user.googleId === googleId)
+  }
+
   getCurrentUser(): User | undefined {
     if (!this.currentUserId) return undefined
     return this.getById(this.currentUserId)
@@ -96,13 +104,61 @@ export class UserService {
   authenticate(email: string, password: string): User | undefined {
     const user = this.users.find(u => u.email === email && u.password === password)
     if (user) {
+      this.updateLastLogin(user.id)
       this.setCurrentUser(user.id)
     }
     return user
   }
 
+  authenticateWithGoogle(googleId: string, userData: Partial<UserData>): User {
+    let user = this.getByGoogleId(googleId)
+    
+    if (!user) {
+      // Check if user exists with same email
+      const existingUser = this.getByEmail(userData.email!)
+      
+      if (existingUser) {
+        // Link Google account to existing user
+        user = this.update(existingUser.id, {
+          googleId,
+          googleProfilePicture: userData.googleProfilePicture,
+          isGoogleUser: true,
+          lastLogin: new Date()
+        })!
+      } else {
+        // Create new user with Google data
+        user = this.create({
+          name: userData.name!,
+          email: userData.email!,
+          googleId,
+          googleProfilePicture: userData.googleProfilePicture,
+          isGoogleUser: true,
+          lastLogin: new Date()
+        })
+      }
+    } else {
+      // Update existing Google user's data
+      user = this.update(user.id, {
+        name: userData.name,
+        googleProfilePicture: userData.googleProfilePicture,
+        lastLogin: new Date()
+      })!
+    }
+    
+    this.setCurrentUser(user.id)
+    return user
+  }
+
+  updateLastLogin(id: string): User | undefined {
+    return this.update(id, { lastLogin: new Date() })
+  }
+
   logout(): void {
     this.setCurrentUser(null)
+  }
+
+  isLoggedIn(): boolean {
+    return this.currentUserId !== null
   }
 }
 

@@ -68,9 +68,9 @@ export default function UserForm({ userId, onCancel }: UserFormProps) {
       newErrors.email = 'Email is invalid'
     }
 
-    if (!isEditMode && !formData.password.trim()) {
+    if (!isEditMode && !formData.password?.trim()) {
       newErrors.password = 'Password is required'
-    } else if (!isEditMode && formData.password.length < 6) {
+    } else if (!isEditMode && (formData.password?.length || 0) < 6) {
       newErrors.password = 'Password must be at least 6 characters'
     }
 

@@ -1,17 +1,40 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { FaBars, FaTimes, FaUser } from 'react-icons/fa';
+import { usePathname, useRouter } from 'next/navigation';
+import { FaBars, FaTimes, FaUser, FaSignInAlt, FaUserPlus, FaSignOutAlt } from 'react-icons/fa';
 import ThemeToggle from '@/components/theme-toggle';
+import { userService } from '@/lib/services/user-service';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  
+  // Check authentication status on component mount
+  useEffect(() => {
+    const user = userService.getCurrentUser();
+    setCurrentUser(user);
+    setIsLoggedIn(!!user);
+  }, [pathname]);
   
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+  
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      userService.logout();
+      setCurrentUser(null);
+      setIsLoggedIn(false);
+      router.push('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
   
   return (
@@ -38,17 +61,63 @@ export default function Header() {
             >
               Organization
             </Link>
+            
+            {/* Authentication Links */}
+            {!isLoggedIn ? (
+              <>
+                <Link 
+                  href="/login" 
+                  className={`flex items-center px-3 py-2 text-sm font-medium ${
+                    pathname?.includes('/login') 
+                      ? 'text-blue-600 dark:text-blue-400' 
+                      : 'text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400'
+                  }`}
+                >
+                  <FaSignInAlt className="mr-1 h-4 w-4" />
+                  Login
+                </Link>
+                <Link 
+                  href="/register" 
+                  className={`flex items-center px-3 py-2 text-sm font-medium ${
+                    pathname?.includes('/register') 
+                      ? 'text-blue-600 dark:text-blue-400' 
+                      : 'text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400'
+                  }`}
+                >
+                  <FaUserPlus className="mr-1 h-4 w-4" />
+                  Register
+                </Link>
+              </>
+            ) : (
+              <button
+                onClick={handleLogout}
+                className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+              >
+                <FaSignOutAlt className="mr-1 h-4 w-4" />
+                Logout
+              </button>
+            )}
           </nav>
           
           <ThemeToggle />
           
-          {/* User profile button */}
-          <Link 
-            href="/sidelayout/users/profile" 
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
-          >
-            <FaUser className="h-4 w-4" />
-          </Link>
+          {/* User profile button - Only show if logged in */}
+          {isLoggedIn && (
+            <Link 
+              href="/profile" 
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+            >
+              {currentUser?.googleProfilePicture ? (
+                <img 
+                  src={currentUser.googleProfilePicture} 
+                  alt={currentUser.name} 
+                  className="h-8 w-8 rounded-full"
+                />
+              ) : (
+                <FaUser className="h-4 w-4" />
+              )}
+            </Link>
+          )}
           
           {/* Mobile menu button */}
           <button
@@ -80,18 +149,62 @@ export default function Header() {
               onClick={toggleMenu}
             >
               Organization
-            </Link>            
-            <Link 
-              href="/sidelayout/users/profile" 
-              className={`block px-3 py-2 text-base font-medium ${
-                pathname?.includes('/users/profile') 
-                  ? 'text-blue-600 dark:text-blue-400' 
-                  : 'text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400'
-              }`}
-              onClick={toggleMenu}
-            >
-              My Profile
             </Link>
+            
+            {/* Authentication Links for Mobile */}
+            {!isLoggedIn ? (
+              <>
+                <Link 
+                  href="/login" 
+                  className={`flex items-center px-3 py-2 text-base font-medium ${
+                    pathname?.includes('/login') 
+                      ? 'text-blue-600 dark:text-blue-400' 
+                      : 'text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400'
+                  }`}
+                  onClick={toggleMenu}
+                >
+                  <FaSignInAlt className="mr-2 h-4 w-4" />
+                  Login
+                </Link>
+                <Link 
+                  href="/register" 
+                  className={`flex items-center px-3 py-2 text-base font-medium ${
+                    pathname?.includes('/register') 
+                      ? 'text-blue-600 dark:text-blue-400' 
+                      : 'text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400'
+                  }`}
+                  onClick={toggleMenu}
+                >
+                  <FaUserPlus className="mr-2 h-4 w-4" />
+                  Register
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link 
+                  href="/profile" 
+                  className={`flex items-center px-3 py-2 text-base font-medium ${
+                    pathname?.includes('/profile') 
+                      ? 'text-blue-600 dark:text-blue-400' 
+                      : 'text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400'
+                  }`}
+                  onClick={toggleMenu}
+                >
+                  <FaUser className="mr-2 h-4 w-4" />
+                  My Profile
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    toggleMenu();
+                  }}
+                  className="flex w-full items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                >
+                  <FaSignOutAlt className="mr-2 h-4 w-4" />
+                  Logout
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}
