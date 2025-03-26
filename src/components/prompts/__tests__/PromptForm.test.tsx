@@ -24,6 +24,12 @@ jest.mock('@/lib/services', () => ({
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
     push: jest.fn()
+  }),
+  useSearchParams: () => ({
+    get: jest.fn().mockImplementation(param => {
+      if (param === 'description') return null;
+      return null;
+    })
   })
 }))
 
